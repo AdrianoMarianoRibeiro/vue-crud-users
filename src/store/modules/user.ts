@@ -1,8 +1,7 @@
-// src/store/modules/users.ts
 import { Module } from "vuex";
-import { RootState } from "../index";
+import { RootState } from "@/store";
 import { User } from "@/types/user";
-import userApi from "@/api/users";
+import userApi from "@/services/userApi";
 
 export interface UsersState {
   users: User[];
@@ -24,15 +23,15 @@ export const users: Module<UsersState, RootState> = {
     addUser(state, user: User) {
       state.users.push(user);
     },
-    updateUser(state, updated: User) {
-      const index = state.users.findIndex((u) => u.id === updated.id);
-      if (index !== -1) state.users.splice(index, 1, updated);
+    updateUser(state, updatedUser: User) {
+      const index = state.users.findIndex((u) => u.id === updatedUser.id);
+      if (index !== -1) state.users.splice(index, 1, updatedUser);
     },
-    deleteUser(state, id: string) {
+    removeUser(state, id: string) {
       state.users = state.users.filter((u) => u.id !== id);
     },
-    setLoading(state, value: boolean) {
-      state.loading = value;
+    setLoading(state, loading: boolean) {
+      state.loading = loading;
     },
   },
 
@@ -56,16 +55,7 @@ export const users: Module<UsersState, RootState> = {
 
     async deleteUser({ commit }, id: string) {
       await userApi.delete(id);
-      commit("deleteUser", id);
-    },
-  },
-
-  getters: {
-    allUsers(state): User[] {
-      return state.users;
-    },
-    isLoading(state): boolean {
-      return state.loading;
+      commit("removeUser", id);
     },
   },
 };

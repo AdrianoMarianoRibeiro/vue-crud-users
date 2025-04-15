@@ -1,43 +1,34 @@
-import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import Vue from 'vue';
+import Router from 'vue-router';
 
-Vue.use(VueRouter);
+import UserListView from '@/views/UserListView.vue';
+import UserCreateView from '@/views/UserCreateView.vue';
+import UserEditView from '@/views/UserEditView.vue';
 
-const routes: Array<RouteConfig> = [
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-  {
-    path: "/users",
-    name: "UserList",
-    component: () => import("@/views/UserListView.vue"),
-  },
-  {
-    path: "/users/create",
-    name: "UserCreate",
-    component: () => import("@/views/UserCreateView.vue"),
-  },
-  {
-    path: "/users/:id/edit",
-    name: "UserEdit",
-    component: () => import("@/views/UserEditView.vue"),
-  },
-];
+Vue.use(Router);
 
-const router = new VueRouter({
-  routes,
+export default new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/users',
+      name: 'UserList',
+      component: UserListView,
+    },
+    {
+      path: '/users/create',
+      name: 'UserCreate',
+      component: UserCreateView,
+    },
+    {
+      path: '/users/:id/edit',
+      name: 'UserEdit',
+      component: UserEditView,
+      props: true,
+    },
+    {
+      path: '*',
+      redirect: '/users',
+    },
+  ],
 });
-
-export default router;

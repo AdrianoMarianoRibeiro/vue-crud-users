@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { users, UsersState } from "./modules/users";
+import { users, UsersState } from "./modules/user";
 
 Vue.use(Vuex);
 

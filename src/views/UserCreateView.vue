@@ -1,37 +1,32 @@
 <template>
-    <v-container>
-      <v-card>
-        <v-card-title>Criar Usuário</v-card-title>
-        <v-card-text>
-          <UserForm @submit="create" @cancel="cancel" />
-        </v-card-text>
-      </v-card>
-    </v-container>
-  </template>
-  
-  <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator'
-  import { User } from '@/types/user'
-  import { mapActions } from 'vuex'
-  import UserForm from '@/components/UserForm.vue'
-  
-  @Component({
-    components: { UserForm },
-    methods: {
-      ...mapActions('users', ['createUser']),
-    },
-  })
-  export default class UserCreateView extends Vue {
-    async create(user: User) {
-      await this.createUser(user)
-      this.$router.push('/users')
+  <v-container>
+    <UserForm @submit="create" />
+  </v-container>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { User } from '@/types/user';
+import UserForm from '@/components/UserForm.vue';
+
+@Component({
+  components: {
+    UserForm,
+  },
+})
+export default class UserCreateView extends Vue {
+  // Função chamada ao enviar o formulário
+  async create(user: User) {
+    try {
+      // Chama a action createUser da store para salvar o usuário
+      await this.$store.dispatch('users/createUser', user);
+      // Redireciona para a lista de usuários após o sucesso
+      this.$router.push('/users');
+    } catch (error) {
+      // Lida com o erro, por exemplo, mostrando um alerta de falha
+      console.error('Failed to create user:', error);
+      // Você pode mostrar uma mensagem de erro para o usuário, por exemplo
     }
-  
-    cancel() {
-      this.$router.push('/users')
-    }
-  
-    createUser!: (user: User) => Promise<void>
   }
-  </script>
-  
+}
+</script>
