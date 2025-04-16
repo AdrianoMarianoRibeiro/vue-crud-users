@@ -178,6 +178,55 @@
         </div>
       </template>
     </v-navigation-drawer>
+
+    <!-- Modal de Ajuda -->
+    <v-dialog v-model="helpDialog" max-width="600">
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon left color="white">mdi-help-circle</v-icon>
+          Ajuda
+        </v-card-title>
+        
+        <v-card-text class="pa-4">
+          <h3 class="subtitle-1 font-weight-bold mb-2">Bem-vindo ao Sistema de Gerenciamento de Usuários</h3>
+          
+          <v-divider class="mb-3"></v-divider>
+          
+          <p>Este sistema permite gerenciar usuários através das seguintes funcionalidades:</p>
+          
+          <v-list-item two-line>
+            <v-list-item-icon>
+              <v-icon color="primary">mdi-account-group</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Listar Usuários</v-list-item-title>
+              <v-list-item-subtitle>Visualize todos os usuários cadastrados no sistema</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          
+          <v-list-item two-line>
+            <v-list-item-icon>
+              <v-icon color="primary">mdi-account-plus</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Cadastrar Usuários</v-list-item-title>
+              <v-list-item-subtitle>Adicione novos usuários ao sistema</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card-text>
+        
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn 
+            color="primary" 
+            text 
+            @click="helpDialog = false"
+          >
+            Fechar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -189,7 +238,8 @@ export default Vue.extend({
   data() {
     return {
       drawer: true,
-      miniVariant: false
+      miniVariant: false,
+      helpDialog: false  // Nova variável para controlar o modal
     }
   },
   methods: {
@@ -198,8 +248,7 @@ export default Vue.extend({
       localStorage.setItem('darkTheme', this.$vuetify.theme.dark.toString());
     },
     showHelp() {
-      // Implementar lógica para mostrar ajuda
-      alert('Seção de Ajuda será implementada em breve');
+      this.helpDialog = true;
     }
   },
   created() {

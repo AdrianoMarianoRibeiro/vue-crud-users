@@ -42,28 +42,38 @@
     <!-- Modal de confirmação -->
     <v-dialog v-model="deleteDialog" max-width="500px" persistent>
       <v-card>
-        <v-card-title class="headline" style="background-color: #f44336; color: white; text-align: center;">
+        <v-card-title class="error white--text text-center">
           <v-icon left>mdi-alert-circle</v-icon> Excluir Usuário
         </v-card-title>
-        <v-card-text class="text-center">
+        
+        <v-card-text class="text-center pt-4 pb-2">
           Tem certeza de que deseja excluir este usuário?
         </v-card-text>
-        <v-card-actions class="d-flex justify-center">
-          <v-btn
-            color="grey"
-            text
+        
+        <v-card-actions class="pb-4 px-4">
+          <v-spacer></v-spacer>
+          
+          <v-btn 
+            outlined
+            color="error" 
+            class="px-4 mr-2" 
+            rounded
             @click="deleteDialog = false"
-            style="border-radius: 20px; padding: 8px 16px; margin-right: 10px;"
           >
             Cancelar
           </v-btn>
-          <v-btn
-            color="red"
+          
+          <v-btn 
+            color="error" 
+            class="px-4 ml-2" 
+            rounded
+            elevation="2"
             @click="deleteUser"
-            style="border-radius: 20px; padding: 8px 16px; margin-left: 10px;"
           >
             Confirmar
           </v-btn>
+          
+          <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
     </v-dialog>
